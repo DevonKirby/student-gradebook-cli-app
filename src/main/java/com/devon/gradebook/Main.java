@@ -20,7 +20,7 @@ public class Main {
 
         System.out.print("Closing gradebook...");
     }
-    
+
     private static void printMenu() {
         System.out.println("\n=== Main Menu ===");
         System.out.println("1. Add student");
