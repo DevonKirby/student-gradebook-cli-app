@@ -1,10 +1,13 @@
 package com.devon.gradebook;
 
+import com.devon.gradebook.service.GradebookService;
+
 import java.util.Scanner;
 
 public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
+    private static final GradebookService gradebookService = new GradebookService();
     private static boolean running = true;
 
     public static void main(String[] args) {
@@ -35,30 +38,37 @@ public class Main {
 
     private static void handleChoice(String choice) {
         switch (choice) {
-            case "1":
-                System.out.println("[Add student] feature coming soon...");
-                break;
-            case "2":
-                System.out.println("[Add grade] feature coming soon...");
-                break;
-            case "3":
-                System.out.println("[List students] feature coming soon...");
-                break;
-            case "4":
-                System.out.println("[Report card] feature coming soon...");
-                break;
-            case "5":
-                System.out.println("[Save to file] feature coming soon...");
-                break;
-            case "6":
-                System.out.println("[Load from file] feature coming soon...");
-                break;
-            case "7":
-                running = false;
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
+            case "1" -> handleAddStudent();
+            case "2" -> handleAddGrade();
+            case "3" -> gradebookService.listStudents();
+            case "4" -> handlePrintReportCard();
+            case "5" -> System.out.println("Save feature coming soon...");
+            case "6" -> System.out.println("Load feature coming soon...");
+            case "7" -> running = false;
+            default -> System.out.println("Invalid choice. Please try again.");
         }
+    }
+
+    private static void handleAddStudent() {
+        System.out.print("Enter student name: ");
+        String name = scanner.nextLine().trim();
+        gradebookService.addStudent(name);
+    }
+
+    private static void handleAddGrade() {
+        System.out.print("Enter student name: ");
+        String name = scanner.nextLine().trim();
+        System.out.print("Enter course name: ");
+        String course = scanner.nextLine().trim();
+        System.out.print("Enter grade (A-F): ");
+        String grade = scanner.nextLine().trim();
+        gradebookService.addGrade(name, course, grade);
+    }
+
+    private static void handlePrintReportCard() {
+        System.out.print("Enter student name: ");
+        String name = scanner.nextLine().trim();
+        gradebookService.printReportCard(name);
     }
 
     private static void clearScreen() {
